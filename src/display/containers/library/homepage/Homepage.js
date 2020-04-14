@@ -1,12 +1,12 @@
 import React, { Suspense, useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import './Homepage.scss';
 
 import TitleSection from '../../../sections/TitleSection';
 import ListControlSection from '../../../sections/ListControlSection';
 import ListSection from '../../../sections/ListSection';
-import {attemptLogout} from '../../../../services/Auth';
-import {ON_SET_LOGOUT, ON_RESET_HOVER_NAVIGATION} from '../../../../store/actions/NavigationActions';
+import { attemptLogout } from '../../../../services/Auth';
+import { ON_SET_LOGOUT, ON_RESET_HOVER_NAVIGATION } from '../../../../store/actions/NavigationActions';
 
 const HomepageContainer = props => {
 
@@ -15,12 +15,12 @@ const HomepageContainer = props => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(logoutClicked) {
-            attemptLogout().then(() => {
-                dispatch({ type: ON_SET_LOGOUT, logoutClicked: false })
-                dispatch({ type: ON_RESET_HOVER_NAVIGATION })
-                props.history.push('/auth/login')
-            })
+        if (logoutClicked) {
+            localStorage.removeItem('authToken')
+            dispatch({ type: ON_SET_LOGOUT, logoutClicked: false })
+            dispatch({ type: ON_RESET_HOVER_NAVIGATION })
+            props.history.push('/auth/login')
+
         }
     }, [logoutClicked])
 

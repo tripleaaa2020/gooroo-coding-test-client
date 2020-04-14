@@ -1,11 +1,34 @@
 import axios from 'axios'
 import { API_URL } from '../utils/Variables';
 
+export const authenticateToken = async () =>{
+
+    const authToken = localStorage.getItem('authToken');
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : authToken
+    }
+
+    await axios.post(API_URL + 'auth/token', {headers : headers})
+    .then(function (response) {
+        console.log(response);
+        return {
+            data: response.data
+        }
+    })
+    .catch(function (error) {
+        console.log(error)
+        return {
+            data: error
+        }
+    });
+}
+
 export const attemptLogin = async contributor =>{
     
     var statusInt = 0
-    let authToken = ''
-    let userData = null;
+    let authToken = null
     let { email, password } = contributor
 
 
@@ -17,8 +40,7 @@ export const attemptLogin = async contributor =>{
         console.log("attemptLogin Response => ", response);
         if(response.data.status){
             statusInt = (response.data.data.authToken ? 1 : 2)
-            authToken = (response.data.data.authToken ? response.data.data.authToken : '')
-            userData = (response.data.data.userData ? JSON.stringify(response.data.data.userData) : null)
+            authToken = (response.data.data.authToken ? response.data.data.authToken : null)
         }else{
             statusInt = 2
             authToken = null
@@ -33,7 +55,6 @@ export const attemptLogin = async contributor =>{
     return {
         statusInt,
         authToken,
-        userData
     }
 }
 
@@ -51,12 +72,12 @@ export const attemptLogout = async () =>{
     .then(function (response) {
         console.log(response);
         localStorage.removeItem('authToken')
-        localStorage.removeItem('userData')
     })
     .catch(function (error) {
         console.log(error)
     });
 }
+
 
 export const attemptRegister = async newContributor =>{
     

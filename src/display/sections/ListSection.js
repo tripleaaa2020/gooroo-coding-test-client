@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import jwt from 'jsonwebtoken';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_LIBRARY_BOOKS } from '../../store/actions/LibraryActions';
 import { SET_MY_BOOKS } from '../../store/actions/MyBooksActions';
@@ -11,7 +12,8 @@ const ListSection = props => {
 
     console.log("ListSection props => ", props);
 
-    const userData = JSON.parse(localStorage.getItem("userData"));
+    const authToken = localStorage.getItem("authToken");
+    const userPayload = jwt.decode(authToken);
 
     const booksListReducer = useSelector(state => (props.from === "Library") ? state.lib : state.mybook);
     const { books, activeCategories, searchValue } = booksListReducer;
@@ -25,8 +27,20 @@ const ListSection = props => {
     }
 
     useEffect(() => {
-        getAllBooks(userData.contributorID, activeCategories, searchValue, props.from)
-            .then(response => setBooks(response.data.rows));
+        getAllBooks(userPayload.contributorID, activeCategories, searchValue, props.from)
+            .then(response => {
+                if (response.data) {
+                    if (response.data.rows)
+                        setBooks(response.data.rows)
+                    localStorage.setItem('authToken', response.data.authToken);
+                }
+                else {
+                    if (response.msg.name === "TokenExpiredError") {
+                        localStorage.removeItem('authToken')
+                        props.history.push('/auth/login')
+                    }
+                }
+            });
     }, [dispatch, activeCategories, searchValue, props.location.state])
 
     return (

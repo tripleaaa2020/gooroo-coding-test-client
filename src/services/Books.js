@@ -39,8 +39,15 @@ export const getAllBooks = async (contributorID, activeCategories, searchValue, 
 
     }
 
+    const authToken = localStorage.getItem('authToken');
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': authToken
+    }
+
     await axios
-        .get(API_URL + "books/all" + categoriesQueryURL + contributorIDQueryURL + searchQueryURL)
+        .get(API_URL + "books/all" + categoriesQueryURL + contributorIDQueryURL + searchQueryURL, { headers: headers })
         .then(function (response) {
             console.log("getAllBooks Response => ", response);
             data = response.data
@@ -107,7 +114,7 @@ export const createBook = async (newBookData) => {
 
     await axios.post(API_URL + 'books/create', newBookData, { headers: headers })
         .then(function (response) {
-            console.log(response)
+            console.log('createBook Response => ',response)
             result = response.data
         })
         .catch(function (error) {

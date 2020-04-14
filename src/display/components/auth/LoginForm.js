@@ -25,8 +25,8 @@ const LoginForm = props => {
 
         attemptLogin(credentials).then(function (result) {
             if (result.statusInt === 1) {
-                setLocalUserData(result.authToken, result.userData)
-                props.history.push('/')
+                setLocalUserData(result.authToken);
+                props.history.push('/');
             } else {
                 setIsLoginSubmitted(false)
                 setLoginFailed(true)

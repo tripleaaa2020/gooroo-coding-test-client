@@ -61,26 +61,45 @@ const BookOperationsContainer = props => {
 
         if (mode === "add") {
             createBook(data).then(res => {
+                
                 if (res.code == 200) {
                     notify.show("Book successfully added to your collection!", 'success', 1000)
                 }
                 else {
                     notify.show("An error has occured, please try again later!", 'error', 1000)
                 }
-                dispatch({ type: RESET_FORM })
-                setTimeout(() => props.history.replace('/my-books'), 1000)
+
+                if (res.data.authToken) {
+                    localStorage.setItem('authToken', res.data.authToken);
+                    dispatch({ type: RESET_FORM })
+                    setTimeout(() => props.history.replace('/my-books'), 1000)
+                }
+                else {
+                    localStorage.removeItem('authToken')
+                    props.history.push('/auth/login')
+                }
             })
         }
         else {
             editBookDetails(bookID, data).then(res => {
+
                 if (res.code == 200) {
                     notify.show("Book successfully editted!", 'success', 1000)
                 }
                 else {
                     notify.show("An error has occured, please try again later!", 'error', 1000)
                 }
-                dispatch({ type: RESET_FORM })
-                setTimeout(() => props.history.replace('/my-books'), 1000)
+
+                if (res.data.authToken) {
+                    localStorage.setItem('authToken', res.data.authToken);
+                    dispatch({ type: RESET_FORM })
+                    setTimeout(() => props.history.replace('/my-books'), 1000)
+                }
+                else {
+                    localStorage.removeItem('authToken')
+                    props.history.push('/auth/login')
+                }
+
             })
         }
 

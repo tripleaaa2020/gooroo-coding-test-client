@@ -1,5 +1,5 @@
 {
-  "name": "bigas-library-client",
+  "name": "gooroo-coding-test-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "jsonwebtoken": "^8.5.1",
     "node-sass": "^4.13.1",
     "pace": "0.0.4",
     "pace-js": "^1.0.2",

@@ -1,6 +1,7 @@
 import React , {useEffect} from 'react'
 import LoginForm from '../../components/auth/LoginForm';
 import RegisterForm from '../../components/auth/RegisterForm';
+import {authenticateToken} from '../../../services/Auth';
 
 // Images
 import backgroundImage from '../../../assets/images/login/background.jpg'
@@ -9,8 +10,13 @@ const AuthContainer = props => {
     const { mode } = props.match.params || {}
 
     useEffect(() => {
-        if(localStorage.getItem('authToken') !== null) props.history.push('/')
-    })
+        if(localStorage.getItem('authToken') !== null) {
+            authenticateToken().then(result => {
+                console.log(result);
+            });
+            props.history.push('/');
+        }
+    },[])
 
     return(
         <div 
