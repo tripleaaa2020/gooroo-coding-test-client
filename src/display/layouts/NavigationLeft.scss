@@ -1,0 +1,28 @@
+$orange : #f5a623;
+.itemLink{
+    font-size: 17px;
+    .pinActive{
+        left: 0;
+        top: 0;
+        width: 7px;
+        height: 100%;
+        background-color: #FFFFFF
+    }
+    &:hover , &.activeLink{
+        background-color:rgba(245,166,28,0.05);
+        color : $orange;
+        .pinActive{
+            background-color  : $orange;
+        }
+    }
+}
+.menu-title {
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    background-color: $orange;
+}

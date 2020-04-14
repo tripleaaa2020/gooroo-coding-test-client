@@ -1,0 +1,1 @@
+export const SET_AUTH_FORM = 'SET_AUTH_FORM'

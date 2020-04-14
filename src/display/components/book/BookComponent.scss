@@ -1,0 +1,48 @@
+.book-component {
+    height: 100%;
+    .book-image {
+        background-color: rgba(245, 166, 28, 0.05);
+        min-height: 255px;
+        border-radius: 8px 8px 0px 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .image{
+            border-radius: 8px 8px 0px 0px;
+            height: 100%;
+            object-fit: cover;
+        }
+        span{
+            position: absolute;
+            text-align: center;
+            cursor: pointer;
+            opacity: 1;
+            transition: all .5s;
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            z-index: 6;
+            a {
+                cursor: pointer;
+            }
+            .book-operations {
+                top: 15px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+            }
+        }
+    }
+}
+.add-book {
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    min-height: 389px;
+    &:hover{
+        background-color: rgba(245, 166, 28, 0.05);
+    }
+}
