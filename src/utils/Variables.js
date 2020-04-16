@@ -7,7 +7,7 @@ import fantasyLogo from '../assets/images/icons/books/fantasy.svg';
 import autobioLogo from '../assets/images/icons/books/autobio.svg';
 
 // export const API_URL = 'http://localhost:4000/API/v1/'
-export const API_URL = 'http://ec2-3-136-160-252.us-east-2.compute.amazonaws.com:4000/API/v1/'
+export const API_URL = 'https://ec2-3-136-160-252.us-east-2.compute.amazonaws.com:8443/API/v1/'
 export const CATEGORIES = [
     {
         categoryID: 0,
